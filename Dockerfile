@@ -4,6 +4,11 @@ RUN apt-get update -qq && apt-get install -y nfs-kernel-server runit inotify-too
 RUN mkdir -p /exports
 
 RUN mkdir -p /etc/sv/nfs
+
+# ADD drive partition
+RUN mkdir -p /space/data && \
+	mount -t ext4 /dev/xvdf1 /space/data
+
 ADD nfs.init /etc/sv/nfs/run
 ADD nfs.stop /etc/sv/nfs/finish
 
